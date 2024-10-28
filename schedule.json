@@ -1,0 +1,16 @@
+[
+  {
+    "class": "Math",
+    "teacher": "Mr. Smith",
+    "room": "101",
+    "period": "1",
+    "days": ["A", "B", "C"]
+  },
+  {
+    "class": "Science",
+    "teacher": "Ms. Johnson",
+    "room": "202",
+    "period": "2",
+    "days": ["B", "C", "D"]
+  }
+]
