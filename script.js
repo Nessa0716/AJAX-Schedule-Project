@@ -1,41 +1,59 @@
 $(document).ready(function () {
-  $("#submitBtn").click(function () {
-    const letterDay = $("#dayInput").val().toUpperCase();
-    if (["A", "B", "C", "D", "E", "F", "G"].includes(letterDay)) {
-      fetchSchedule(letterDay);
-    } else {
-      alert("Please enter a valid letter day (A-G).");
-    }
+  const scheduleUrl = "https://www.npoint.io/docs/243d87da42af651a8ec1";
+
+  const dailyPeriods = {
+      A: [1, 2, 3, 5, 6],
+      B: [4, 1, 2, 7, 5],
+      C: [3, 4, 1, 6, 6],
+      D: [2, 3, 4, 5, 6],
+      E: [1, 2, 3, 7, 5],
+      F: [4, 1, 2, 6, 7],
+      G: [3, 4, 7, 5, 6]
+  };
+
+  const btn = $('#submitDay');
+
+  btn.on('click', function () {
+      const daySelected = $('#dayInput').val().toUpperCase();
+
+      if (['A', 'B', 'C', 'D', 'E', 'F', 'G'].includes(daySelected)) {
+          $.ajax({
+              type: 'GET',
+              url: scheduleUrl,
+              success: function (data) {
+                  $('#scheduleList').empty(); // Clear the previous schedule
+
+                  const classesForDay = getClassesForDay(data, daySelected);
+                  const daySchedule = dailyPeriods[daySelected];
+                  let bellIndex = 0; // Start from 0
+
+                  daySchedule.forEach(() => {
+                      if(true) {
+                          const getClass = classesForDay[bellIndex];
+                          if (getClass) {
+                              $('#scheduleList').append(`
+                                  <tr>
+                                      <td>${getClass.period}</td>
+                                      <td>${getClass.class}</td>
+                                      <td>${getClass.teacher}</td>
+                                      <td>${getClass.room}</td>
+                                  </tr>
+                              `);
+                              bellIndex++;
+                          }
+                      }
+                  });
+              },
+              error: function () {
+                  console.log('Connection error.');
+              }
+          });
+      } else {
+          alert('Please choose a correct letter day.');
+      }
   });
+
+  function getClassesForDay(data, day) {
+      return data.schedule.filter(classInfo => classInfo.days.includes(day));
+  }
 });
-function fetchSchedule(day) {
-  $.ajax({
-    url: "YOUR_JSON_URL", // replace with your hosted JSON URL
-    method: "GET",
-    success: function (data) {
-      displaySchedule(data, day);
-    },
-    error: function () {
-      alert("Error loading schedule data.");
-    },
-  });
-}
-function displaySchedule(data, day) {
-  const $tbody = $("#scheduleTable tbody");
-  $tbody.empty(); // Clear previous results
-
-  data.forEach((item) => {
-    if (item.days.includes(day)) {
-      $tbody.append(`
-                <tr>
-                    <td>${item.period}</td>
-                    <td>${item.time || "N/A"}</td>
-                    <td>${item.class}</td>
-                    <td>${item.teacher}</td>
-                    <td>${item.room}</td>
-                </tr>
-            `);
-    }
-  });
-}
-

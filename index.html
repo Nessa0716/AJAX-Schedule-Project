@@ -1,44 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Where Should I Be Right Now?</title>
-  </head>
-  <body>
-    <h1>Class Schedule</h1>
-    <label for="dayInput">Enter Letter Day (A-G): </label>
-    <input type="text" id="dayInput" maxlength="1" />
-    <button id="submitBtn">Submit</button>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Where Should I Be Right Now?</h1>
 
-    <table id="scheduleTable">
-      <thead>
-        <tr>
-          <th>Period</th>
-          <th>Time</th>
-          <th>Class</th>
-          <th>Teacher</th>
-          <th>Room</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Schedule data will be inserted here -->
-      </tbody>
-    </table>
-    <script src="myscripts.js"></script>
-
-    <script src="jquery-3.7.1.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-      crossorigin="anonymous"
-    ></script>
-    
-  </body>
+        <div class="form-group">
+            <label for="dayInput">Select Day (A-G):</label>
+            <input type="text" id="dayInput" class="form-control" placeholder="Enter a day (A-G)">
+            <button id="submitDay" class="btn btn-primary mt-2">Show Schedule</button>
+        </div>
+        <div class="schedule">
+            <h3 class="text-center">Your Schedule for the Day</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Time</th>
+                        <th>Class</th>
+                        <th>Teacher</th>
+                        <th>Room</th>
+                    </tr>
+                </thead>
+                <tbody id="scheduleList"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
 </html>
