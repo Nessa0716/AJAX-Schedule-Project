@@ -23,7 +23,7 @@ $(document).ready(function () {
               success: function (data) {
                   $('#scheduleList').empty(); // Clear the previous schedule
 
-                  const classesForDay = getClassesForDay(data, daySelected);
+                  const classesForDay = data.schedule.filter(classInfo => classInfo.days.includes(daySelected));
                   const daySchedule = dailyPeriods[daySelected];
                   let bellIndex = 0; // Start from 0
 
